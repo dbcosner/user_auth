@@ -1,5 +1,7 @@
 class User < ApplicationRecord
+
   EMAIL_REGEX = /\A[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\z/i
+
   validates :username, presence: true, uniqueness: true, length: { in: 3..20 }
   validates :email, presence: true, uniqueness: true, format: EMAIL_REGEX
 
@@ -21,7 +23,7 @@ class User < ApplicationRecord
     self.password = nil
   end
 
-  def self.authenticate(username_or_email="", login_password="")
+  def self.authenticate(username_or_email = "", login_password = "")
     if EMAIL_REGEX.match(username_or_email)
       user = User.find_by_email(username_or_email)
     else

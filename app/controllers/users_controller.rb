@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
 
+  # Prevent the user from accessing signup if already logged in:
+  before_filter :save_login_state, only: [:new, :create]
+
   def new
     @user = User.new
   end
